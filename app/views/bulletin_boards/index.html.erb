@@ -1,0 +1,44 @@
+<div class="tabbox">
+    <h1>掲示板</h1>
+    <p id="tabs" class="clear" >
+        <a href="#" id="public" class="tab1" >公開</a>
+        <a href="#" id="private" class="tab2" >一部公開</a>
+        <a href="#" id="sort" class="sort" >ソート</a>
+    </p>
+ 
+    <div id="tab1" class="tab"></br>
+        <% if @public_foods || @public_fresh then %>
+            <% @public_foods.each do |fridge| %>
+                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ　期限:<%= fridge.deadline %></p>
+            <% end %>
+            <p>-----------------------------------------------------------</p>
+            <% @public_fresh.each do |fridge| %>
+                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ 購入日:<%= fridge.purchase %></p>
+            <% end %>
+        <% else %>
+            <p>　なんもないよ　</p>
+        <% end %>
+    </div>
+    
+    <div id="tab2" class="tab"></br>
+        <!-- こっちは本当は部分公開フラグが立ってる奴だけ表示　-->
+        <% if @private_foods || @private_fresh then %>
+            <% @private_foods.each do |fridge| %>
+                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ　期限:<%= fridge.deadline %></p>
+            <% end %>
+            <p>----------------------------------------------------------</p>
+            <% @private_fresh.each do |fridge| %>
+                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ 購入日:<%= fridge.purchase %></p>
+            <% end %>
+        <% else %>
+            <p>　テスト用　</p>
+        <% end %>
+    </div>
+
+</div><!-- tabbox -->
+
+<!-- ページを開いた際の最初に表示されるタブの選択 -->
+<script type="text/javascript">
+    set();
+    changeTab(tabwin2);
+</script>

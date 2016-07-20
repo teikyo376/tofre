@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>とうふれ</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<header>
+      <nav>
+      <% if user_signed_in? %>
+        <strong><%#= link_to current_user.username, top_show_path %></strong>
+        <ul id="nav">
+          <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
+          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          <li><%=link_to "トップへ戻る", root_path %></li>
+        </ul>
+        <br />
+      <% else %>
+        <ul id="nav">
+          <li><%= link_to '新規登録', new_user_registration_path %></li>
+          <li><%= link_to 'ログイン', new_user_session_path %></li>
+          <li><%=link_to "トップへ戻る", root_path %></li>
+        </ul>
+        <br />
+      <% end %>
+    </nav>
+  </header>
+	<p class="notice"><%= notice %></p>
+	<p class="alert"><%= alert %></p>
+  <aside id="menu" >
+    
+    <ul>
+      <li id="fridge" class="menuList"><%= link_to "冷蔵庫", refrigerators_path %></li>
+      <li id="blltn"  class="menuList"><%= link_to "掲示板", bulletin_boards_path %></li>
+      <li id="recipe" class="menuList"><%= link_to "レシピ", donuts_path %></li>
+    </ul>
+  </aside>
+  <main id="contents" >
+    <%= yield %>
+  </main>	
+</body>
+</html>
