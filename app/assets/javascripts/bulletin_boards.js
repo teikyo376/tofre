@@ -4,7 +4,7 @@
 var tabwin1, tabwin2;
 
 function set(){
-    renderMenuBar();
+ //   renderMenuBar();
     tabwin1 = document.getElementById("tab1");
     tabwin2 = document.getElementById("tab2");
     changeTab(tabwin2);
@@ -16,7 +16,7 @@ function set(){
         .addEventListener('click', function(){});
 }
 
-function renderMenuBar(){
+/*function renderMenuBar(){
     var blltn = document.getElementById("blltn");
     blltn.innerHTML +=   "<ul id='blltnList'>" +
                             "<li><b>公開範囲</b></li>" + 
@@ -26,7 +26,7 @@ function renderMenuBar(){
                             "<li><input type='button' value='ユーザ名順'></button></li>" +
                             "<li><input type='button' value='賞味期限順'></button></li>" +
                         "</ul>";
-}
+}*/
 
 /*引数tabを非表示にし、表示するタブを変更する
 *  tab:現在表示されている方のタブ
