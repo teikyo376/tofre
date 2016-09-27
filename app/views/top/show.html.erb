@@ -1,4 +1,5 @@
 <h1>こんにちは、<%= current_user.username %>さん</h1>
+<<<<<<< HEAD
 <p>とうふれのユーザー用ページです。</p>
 
 <% @users.each do |user| %>
@@ -25,3 +26,6 @@
 <% current_user.following.each do |user| %>
 	<% if current_user.followed_by?(user) %><%= user.username %>|<%= link_to 'ブロック', block_top_path(user) %><br><% end %>
 <% end %>
+=======
+<p>とうふれのユーザー用ページです。</p>
+>>>>>>> origin/master
