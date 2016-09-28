@@ -8,8 +8,16 @@ Rails.application.routes.draw do
     member {get "fab","unfab"}
   end
   resources :refrigerators do
+<<<<<<< HEAD
+    collection {get "delete"}
+    member {get "switching"}
+  end
+  resources :top do
+    member {get "follow","nofollow","refollow","norefollow","block"}
+=======
       collection {get "delete"}
       member {get "switching"}
+>>>>>>> origin/master
   end
   resources :bulletin_boards
 end
