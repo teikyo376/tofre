@@ -80,7 +80,7 @@ class RefrigeratorsController < ApplicationController
 
   def switching
     if params[:rele]
-      @refrigerator.update_attributes(release: (@refrigerator.release+1)%3 ,change: DateTime.now)
+      @refrigerator.update_attributes(release: (@refrigerator.release+1)%2 ,change: DateTime.now)
     else
       @refrigerator.update_attributes(quantity: @refrigerator.quantity - 1)
     end
