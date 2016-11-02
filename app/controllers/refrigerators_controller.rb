@@ -30,7 +30,6 @@ class RefrigeratorsController < ApplicationController
     @refrigerator = Refrigerator.new(refrigerator_params)
     @refrigerator.deadline = nil if params[:line]
     @refrigerator.purchase = Date.today
-    
     respond_to do |format|
       if @refrigerator.save
         format.html { redirect_to @refrigerator, notice: 'Refrigerator was successfully created.' }

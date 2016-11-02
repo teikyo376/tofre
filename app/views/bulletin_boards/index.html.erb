@@ -1,37 +1,47 @@
 <div class="tabbox">
     <h1>掲示板</h1>
     <p id="tabs" class="clear" >
-        <a href="#" id="public" class="tab1" >公開</a>
-        <a href="#" id="private" class="tab2" >一部公開</a>
-        <a href="#" id="sort" class="sort" >ソート</a>
+        <form name="menu">
+            <select name="sort_menu" id="sort_menu">
+                <option id="public_order" value="0" selected>公開順</option>
+                <option id="user_name_order" value="1">人の名前順</option>
+                <option id="deadline_order" value="2">期限近い順</option>
+            </select> 
     </p>
  
     <div id="tab1" class="tab"></br>
         <% if @public_foods || @public_fresh then %>
-            <% @public_foods.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ　期限:<%= fridge.deadline %></p>
-            <% end %>
+            <table>
+                <tr>
+                    <th class="user_name_header">ユーザ名</th>
+                    <th class="foods_header">食材</th>
+                    <th class="deadline_header">期限</th>
+                </tr>
+                <% @public_foods.each do |fridge| %>
+                <tr class="foods_article">
+                    <td class="user_name"><%= fridge.user.username %></td>
+                    <td class="foods"><%= fridge.name %></td>
+                    <td class="deadline"><%= fridge.deadline %></td>
+                </tr>
+                <% end %>
+            </table>
             <p>-----------------------------------------------------------</p>
-            <% @public_fresh.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ 購入日:<%= fridge.purchase %></p>
-            <% end %>
+            <table>
+                <tr>
+                    <th class="user_name_header">ユーザ名</th>
+                    <th class="foods_header">食材</th>
+                    <th class="deadline_header">期限</th>
+                </tr>
+                <% @public_fresh.each do |fridge| %>
+                <tr class="fresh_article" >
+                    <td class="user_name"><%= fridge.user.username %></td>
+                    <td class="foods"><%= fridge.name %></td>
+                    <td class="purchase"><%= fridge.purchase %></td>
+                </tr>
+                <% end %>
+            </table>
         <% else %>
             <p>　なんもないよ　</p>
-        <% end %>
-    </div>
-    
-    <div id="tab2" class="tab"></br>
-        <!-- こっちは本当は部分公開フラグが立ってる奴だけ表示　-->
-        <% if @private_foods || @private_fresh then %>
-            <% @private_foods.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ　期限:<%= fridge.deadline %></p>
-            <% end %>
-            <p>----------------------------------------------------------</p>
-            <% @private_fresh.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ 購入日:<%= fridge.purchase %></p>
-            <% end %>
-        <% else %>
-            <p>　テスト用　</p>
         <% end %>
     </div>
 
@@ -40,5 +50,4 @@
 <!-- ページを開いた際の最初に表示されるタブの選択 -->
 <script type="text/javascript">
     set();
-    changeTab(tabwin2);
 </script>

@@ -138,7 +138,15 @@ aside li.menuList a:hover{
 }
 
 #blltnList a{
+  display: block; 
   border: 1px solid #9F99A3;
+  -webkit-border-top-right-radius: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  
 }
 
 /* 掲示板 */

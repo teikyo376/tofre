@@ -1,44 +1,92 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
-var tabwin1, tabwin2;
+var tabwin1;
 
 function set(){
- //   renderMenuBar();
-    tabwin1 = document.getElementById("tab1");
-    tabwin2 = document.getElementById("tab2");
-    changeTab(tabwin2);
-    document.getElementById('public')
-        .addEventListener('click', function(){changeTab(tabwin2)});
-    document.getElementById('private')
-        .addEventListener('click', function(){changeTab(tabwin1)});
-    document.getElementById('sort')
-        .addEventListener('click', function(){});
-}
+    var originTab1 = $("#tab1").clone(true)
 
-/*function renderMenuBar(){
-    var blltn = document.getElementById("blltn");
-    blltn.innerHTML +=   "<ul id='blltnList'>" +
-                            "<li><b>公開範囲</b></li>" + 
-                            "<li><a href='#' id='public'  class='tab1'>公開</a></li>" +
-                            "<li><a href='#' id='private' class='tab2'>一部公開</a></li>" +
-                            "<li><b>ソート</b></li>" +
-                            "<li><input type='button' value='ユーザ名順'></button></li>" +
-                            "<li><input type='button' value='賞味期限順'></button></li>" +
-                        "</ul>";
-}*/
+    tabwin1 = document.getElementById("tab1")
+    $(function(){
+
+      $("#sort_menu").change(function(){
+
+        // culumn no you select
+        var key = $(this)[0].options.selectedIndex
+        var idx = 0
+        switch (key){
+            case 0 :
+                var newTab1 = $("#tab1")
+                newTab1[0].innerHTML = originTab1[0].innerHTML
+                return;
+            case 1 :
+                sortSelector = $(".user_name_header")
+                idx = 0
+                break;
+            case 2 :
+                sortSelector = $(".deadline_header")
+                idx = 2
+                break;                
+        }
+        // get number of line and columns of the table
+        var tab1FoodsRow = $("#tab1 .foods_article").length;
+        var tab1FreshRow = $("#tab1 .fresh_article").length;
+
+        var no_column = 3
+
+        // get all entries and keep values in tab1FoodsArray
+        var tab1FoodsArr = [];
+        var tab1FreshArr = [];
+        
+        // flag for value type "strings" or "number only"
+        var flag = 1;  // 0:number only  1:strings
+        var re = /\D/;
+        var i 
+        for( i = 1; i <= tab1FoodsRow; i++){
+          tab1FoodsArr[i-1] = [];
+          for(var j = 0; j < no_column; j++){
+            tab1FoodsArr[i-1][j] = sortSelector.closest("table").children().children().eq(i).children().eq(j).text();
+          }
+        }
+        for(i++; i <= tab1FreshRow + tab1FoodsRow + 1; i++){
+          tab1FreshArr[i-1] = [];
+          for(var j = 0; j < no_column; j++){
+            tab1FreshArr[i-1][j] = sortSelector.closest("table").children().children().eq(i).children().eq(j).text();
+          }
+        }
+  
+        // sort by the key you selected
+        var rs1foods = tab1FoodsArr.sort( function(a,b){ return sortOption(a, b, idx); } )
+        var rs1fresh = tab1FreshArr.sort( function(a,b){ return sortOption(a, b, idx); } )
+       
+        i = 0
+        // insert tab1FoodsArranged values into table
+        for( i=0;i < rs1foods.length; i++){
+          for(var j=0;j < rs1foods[i].length; j++){
+            sortSelector.closest("table").children().children().eq(i+1).children().eq(j).text(rs1foods[i][j]);
+          }
+        }
+        for(i=0 ;i < rs1fresh.length - rs1foods.length - 1; i++){
+          for(var j=0;j < rs1fresh[i].length; j++){
+            $(".fresh_article").eq(i).children().eq(j).text(rs1fresh[i][j]);
+          }
+        }
+       
+      });
+    });
+
+}
 
 /*引数tabを非表示にし、表示するタブを変更する
 *  tab:現在表示されている方のタブ
 */
-function changeTab(tab) {
-    tabwin1.style.display = 'block';
-    tabwin2.style.display = 'block';
-    tab.style.display = 'none';
+
+function sortOption(a, b, idx){
+    if(a[idx] < b[idx]){
+        return -1;
+    } else if(a[idx] > b[idx]){
+        return 1;
+    } else {
+        return 0;
+    }
 }
-
-function sort(){
-
-
-}
-
