@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702165134) do
+ActiveRecord::Schema.define(version: 20161012050832) do
 
   create_table "donuts", force: :cascade do |t|
     t.integer  "user_id"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20160702165134) do
   end
 
   add_index "donuts", ["user_id"], name: "index_donuts_on_user_id"
+
+  create_table "events", force: :cascade do |t|
+    t.text     "place"
+    t.datetime "date"
+    t.integer  "upper_num"
+    t.integer  "lower_num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "fabs", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -43,8 +52,21 @@ ActiveRecord::Schema.define(version: 20160702165134) do
   add_index "follows", ["from_user_id"], name: "index_follows_on_from_user_id"
   add_index "follows", ["to_user_id"], name: "index_follows_on_to_user_id"
 
+  create_table "lists", force: :cascade do |t|
+    t.integer  "refrigerator_id"
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "lists", ["event_id"], name: "index_lists_on_event_id"
+  add_index "lists", ["refrigerator_id"], name: "index_lists_on_refrigerator_id"
+  add_index "lists", ["user_id"], name: "index_lists_on_user_id"
+
   create_table "refrigerators", force: :cascade do |t|
     t.integer  "user_id"
+    t.integer  "event_id"
     t.text     "name"
     t.integer  "quantity"
     t.date     "deadline"
@@ -55,7 +77,19 @@ ActiveRecord::Schema.define(version: 20160702165134) do
     t.datetime "updated_at",             null: false
   end
 
+  add_index "refrigerators", ["event_id"], name: "index_refrigerators_on_event_id"
   add_index "refrigerators", ["user_id"], name: "index_refrigerators_on_user_id"
+
+  create_table "replies", force: :cascade do |t|
+    t.integer  "refrigerator_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "replies", ["refrigerator_id"], name: "index_replies_on_refrigerator_id"
+  add_index "replies", ["user_id"], name: "index_replies_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

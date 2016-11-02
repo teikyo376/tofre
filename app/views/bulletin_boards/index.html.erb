@@ -9,11 +9,34 @@
     <div id="tab1" class="tab"></br>
         <% if @public_foods || @public_fresh then %>
             <% @public_foods.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ　期限:<%= fridge.deadline %></p>
+                <!--お試し実験中 by菅谷-->
+                <p class="article">
+                    <%= link_to '→', bulletin_boards_path(id: fridge.id) %>
+                    <%= fridge.user.username %>の<%= fridge.name %>　期限:<%= fridge.deadline %>
+                    <% if @list = List.find_by(refrigerator_id: fridge.id, user_id: current_user.id) %>
+                        <%= link_to '[♥︎]', list_path(@list), method: :delete %>
+                    <% elsif fridge.user != current_user %>
+                        <%= link_to '[♡]', lists_path(fid: fridge.id), method: :post %>
+                    <% else %>
+                        <%= link_to "#{List.where(refrigerator_id: fridge.id).count}人" %>
+                    <% end %>
+                </p>
+                <% fridge.replies.each do |re| %>
+                    [返]<%= re.user.username %>：<%= re.content %><br>
+                <% end %>
+                <% if fridge.id == params[:id].to_i %>
+                    <%= render "replies/new" , fri: fridge %>
+                <% end %>
             <% end %>
             <p>-----------------------------------------------------------</p>
             <% @public_fresh.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ 購入日:<%= fridge.purchase %></p>
+                <p class="article"><%= link_to '→', bulletin_boards_path(id: fridge.id) %><%= fridge.user.username %>の<%= fridge.name %> 購入日:<%= fridge.purchase %></p>
+                <% fridge.replies.each do |re| %>
+                    [返]<%= re.user.username %>：<%= re.content %><br>
+                <% end %>
+                <% if fridge.id == params[:id].to_i %>
+                    <%= render "replies/new" , fri: fridge %>
+                <% end %>
             <% end %>
         <% else %>
             <p>　なんもないよ　</p>
@@ -24,11 +47,27 @@
         <!-- こっちは本当は部分公開フラグが立ってる奴だけ表示　-->
         <% if @private_foods || @private_fresh then %>
             <% @private_foods.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ　期限:<%= fridge.deadline %></p>
+                <p class="article">
+                    <%= link_to '→', bulletin_boards_path(id: fridge.id) %>
+                    <%= fridge.user.username %>の<%= fridge.name %>　期限:<%= fridge.deadline %>
+                    <% if @list = List.find_by(refrigerator_id: fridge.id, user_id: current_user.id) %>
+                        <%= link_to '[♥︎]', list_path(@list), method: :delete %>
+                    <% elsif fridge.user != current_user %>
+                        <%= link_to '[♡]', lists_path(fid: fridge.id), method: :post %>
+                    <% else %>
+                        <%= link_to "#{List.where(refrigerator_id: fridge.id).count}人" %>
+                    <% end %>
+                </p>
+                <% fridge.replies.each do |re| %>
+                    [返]<%= re.user.username %>：<%= re.content %><br>
+                <% end %>
+                <% if fridge.id == params[:id].to_i %>
+                    <%= render "replies/new" , fri: fridge %>
+                <% end %>
             <% end %>
             <p>----------------------------------------------------------</p>
             <% @private_fresh.each do |fridge| %>
-                <p class="article"><%= fridge.user.username %>の<%= fridge.name %>がやばみ 購入日:<%= fridge.purchase %></p>
+                <p class="article"><%= fridge.user.username %>の<%= fridge.name %> 購入日:<%= fridge.purchase %></p>
             <% end %>
         <% else %>
             <p>　テスト用　</p>

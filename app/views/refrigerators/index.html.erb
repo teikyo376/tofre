@@ -27,7 +27,6 @@
         <td><%= link_to refrigerator.quantity, switching_refrigerator_path(refrigerator) %></td>
         <td><%= refrigerator.deadline %></td>
         <td><% if refrigerator.release == 0 %><%= link_to '非公開', switching_refrigerator_path(refrigerator, rele: 1) %>
-            <% elsif refrigerator.release == 1 %><%= link_to '限定公開', switching_refrigerator_path(refrigerator, rele: 1) %>
             <% else %><%= link_to '公開', switching_refrigerator_path(refrigerator, rele: 1) %><% end %></td>
         <td><%= link_to '編集', edit_refrigerator_path(refrigerator) %></td>
       </tr>
@@ -56,7 +55,6 @@
         <td><%= link_to refrigerator.quantity, switching_refrigerator_path(refrigerator) %></td>
         <td><%= (Date.today - refrigerator.purchase).to_i %>日経過</td>
         <td><% if refrigerator.release == 0 %><%= link_to '非公開', switching_refrigerator_path(refrigerator, rele: 1) %>
-            <% elsif refrigerator.release == 1 %><%= link_to '限定公開', switching_refrigerator_path(refrigerator, rele: 1) %>
             <% else %><%= link_to '公開', switching_refrigerator_path(refrigerator, rele: 1) %><% end %></td>
         <td><%= link_to '編集', edit_refrigerator_path(refrigerator) %></td>
       </tr>
