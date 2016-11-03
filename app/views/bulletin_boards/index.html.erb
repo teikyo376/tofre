@@ -13,37 +13,82 @@
         <% if @public_foods || @public_fresh then %>
             <table>
                 <tr>
+                    <th class="arrow_header"></th>
                     <th class="user_name_header">ユーザ名</th>
                     <th class="foods_header">食材</th>
                     <th class="deadline_header">期限</th>
+                    <th class="heart_header"></th>
                 </tr>
                 <% @public_foods.each do |fridge| %>
-                <tr class="foods_article">
-                    <td class="user_name"><%= fridge.user.username %></td>
-                    <td class="foods"><%= fridge.name %></td>
-                    <td class="deadline"><%= fridge.deadline %></td>
-                </tr>
+                    <tr class="foods_article">
+                        <td class="arrow"><%= link_to '→', bulletin_boards_path(id: fridge.id) %></td>
+                        <td class="user_name"><%= fridge.user.username %></td>
+                        <td class="foods"><%= fridge.name %></td>
+                        <td class="deadline"><%= fridge.deadline %></td>
+                        <td class="heart">
+                            <% if @list = List.find_by(refrigerator_id: fridge.id, user_id: current_user.id) %>
+                                <%= link_to '[♥︎]', list_path(@list), method: :delete %>
+                            <% elsif fridge.user != current_user %>
+                                <%= link_to '[♡]', lists_path(fid: fridge.id), method: :post %>
+                            <% else %>
+                                <%= link_to "#{List.where(refrigerator_id: fridge.id).count}人" %>
+                            <% end %>
+                        </td>
+                    </tr> 
+                        <% fridge.replies.each do |re| %>
+                            <tr>
+                                [返]<%= re.user.username %>：<%= re.content %>
+                            </tr>
+                        <% end %>
+                        <% if fridge.id == params[:id].to_i %>
+                            <tr>
+                                <%= render "replies/new" , fri: fridge %>
+                            </tr>
+                        <% end %>
                 <% end %>
             </table>
             <p>-----------------------------------------------------------</p>
             <table>
                 <tr>
+                    <th class="arrow_header"></th>
                     <th class="user_name_header">ユーザ名</th>
                     <th class="foods_header">食材</th>
                     <th class="deadline_header">期限</th>
+                    <th class="heart_header"></th>
                 </tr>
                 <% @public_fresh.each do |fridge| %>
-                <tr class="fresh_article" >
-                    <td class="user_name"><%= fridge.user.username %></td>
-                    <td class="foods"><%= fridge.name %></td>
-                    <td class="purchase"><%= fridge.purchase %></td>
-                </tr>
+                    <tr class="fresh_article" >
+                        <td class="arrow"><%= link_to '→', bulletin_boards_path(id: fridge.id) %></td>
+                        <td class="user_name"><%= fridge.user.username %></td>
+                        <td class="foods"><%= fridge.name %></td>
+                        <td class="purchase"><%= fridge.purchase %></td>
+                        <td class="heart">
+                            <% if @list = List.find_by(refrigerator_id: fridge.id, user_id: current_user.id) %>
+                                <%= link_to '[♥︎]', list_path(@list), method: :delete %>
+                            <% elsif fridge.user != current_user %>
+                                <%= link_to '[♡]', lists_path(fid: fridge.id), method: :post %>
+                            <% else %>
+                                <%= link_to "#{List.where(refrigerator_id: fridge.id).count}人" %>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <% fridge.replies.each do |re| %>
+                        <tr>
+                            [返]<%= re.user.username %>：<%= re.content %><br>
+                        </tr>
+                    <% end %>
+                    <% if fridge.id == params[:id].to_i %>
+                        <tr>
+                            <%= render "replies/new" , fri: fridge %>
+                        </tr>
+                    <% end %>
                 <% end %>
             </table>
         <% else %>
             <p>　なんもないよ　</p>
         <% end %>
     </div>
+
 
 </div><!-- tabbox -->
 

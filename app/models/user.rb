@@ -4,9 +4,12 @@ class User < ActiveRecord::Base
   has_many :following, through: :follows_from, source: :to_user
   has_many :followed,  through: :follows_to,   source: :from_user
 
-  has_many :refrigerator
-  has_many :donut
-  has_many :fab
+  has_many :refrigerators
+  has_many :donuts
+  has_many :fabs
+  has_many :replies
+  has_many :lists
+
 
 
   # Include default devise modules. Others available are:

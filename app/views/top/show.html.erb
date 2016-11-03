@@ -1,2 +1,31 @@
 <h1>こんにちは、<%= current_user.username %>さん</h1>
+
 <p>とうふれのユーザー用ページです。</p>
+
+<% @users.each do |user| %>
+	<%= user.username %>|<%= link_to 'フォロー', follow_top_path(user) %><br>
+<% end %>
+
+
+<br>
+<h3>フォロー申請中</h3>
+<% current_user.following.each do |user| %>
+	<% unless current_user.followed_by?(user) %><%= user.username %>|<%= link_to '取り消し', nofollow_top_path(user) %><br><% end %>
+<% end %>
+
+
+<br>
+<h3>フォロリク</h3>
+<% current_user.followed.each do |user| %>
+	<% unless current_user.following?(user) %><%= user.username %><%= link_to 'フォロー', follow_top_path(user) %>|<%= link_to '拒否', norefollow_top_path(user) %><br><% end %>
+<% end %>
+
+
+<br>
+<h3>フレンド</h3>
+<% current_user.following.each do |user| %>
+	<% if current_user.followed_by?(user) %><%= user.username %>|<%= link_to 'ブロック', block_top_path(user) %><br><% end %>
+<% end %>
+
+<p>とうふれのユーザー用ページです。</p>
+

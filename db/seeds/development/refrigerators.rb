@@ -6,7 +6,7 @@
     quantity: (idx % 3) + 1,
     purchase: 1.weeks.ago.advance(days: idx),
     deadline: 1.weeks.from_now.advance(days: idx),
-    release: idx%3
+    release: idx%2
   )
 end
 
@@ -17,7 +17,7 @@ end
     quantity: (idx % 3) + 1,
     purchase: 1.weeks.ago.advance(days: idx),
     deadline: nil,
-    release: idx%3
+    release: idx%2
   )
 end
 
@@ -31,7 +31,7 @@ fresh = ["りんご","ピーマン","マグロ","キャベツ","バナナ","タ�
     quantity: (idx % 3) + 1,
     purchase: 1.weeks.ago.advance(days: idx),
     deadline: 1.weeks.from_now.advance(days: idx),
-    release: idx%3
+    release: idx%2
   )
 end
 
@@ -42,6 +42,6 @@ end
     quantity: (idx % 3) + 1,
     purchase: 1.weeks.ago.advance(days: idx),
     deadline: nil,
-    release: idx%3
+    release: idx%2
   )
 end

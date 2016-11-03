@@ -1,6 +1,6 @@
 class Donut < ActiveRecord::Base
   belongs_to :user
-  has_many :fab
+  has_many :fabs
 
   attr_reader :image
 
