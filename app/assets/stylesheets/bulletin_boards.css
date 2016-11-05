@@ -67,3 +67,15 @@ div.tab p { margin: 0.5em; }
 p#article{
    font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
 }
+
+/*モーダルウィンドウ*/
+#modal-content{
+  display: none;
+  color: #352166
+  width:50%;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  border:2px solid #aaa;
+  background:#fff;
+  z-index:2;
+}
