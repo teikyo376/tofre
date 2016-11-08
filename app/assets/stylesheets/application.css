@@ -138,7 +138,15 @@ aside li.menuList a:hover{
 }
 
 #blltnList a{
+  display: block; 
   border: 1px solid #9F99A3;
+  -webkit-border-top-right-radius: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  
 }
 
 /* 掲示板 */
@@ -152,43 +160,6 @@ div.tabbox {
     width:400px; 
     height:100%;
 }
-/* ▼ タブ部分のマージンとパディング領域を設定 */
-p#tabs { margin: 0 ; padding: 0; }
-p#tabs a {
-   /* ▼ リンクをタブのように見せる */
-   width: 100px; 
-   float: left;
-   margin: 0px 3px 0px 0px; 
-   padding: 3px;
-   text-align: center;
-   font-size:12px;
-}
-/* ▼ タブごとの配色設定 */
-p#tabs a.tab1 {
-    text-decoration:none;
-    background-color:#fafafa;
-    border-top: 3px solid rgba(255, 191, 00, 0.85);  
-    color: #666; 
-    font-weight:600;
-}
-p#tabs a.tab2 {
-    text-decoration:none; 
-    background-color:#fafafa;
-    border-top: 3px solid rgba(82, 223, 102, 0.85);  
-    color: #666;
-    font-weight:600;
-}
-p#tabs a.sort{
-    text-decoration:none; 
-    background-color:#fafafa;
-    border-top: 3px solid rgba(116, 1, 223, 0.85);  
-    color: #666;
-    font-weight:600;
-}
-p#tabs a:hover {
-    opacity:0.7;
-    filter:alpha(opacity=70);
-}
 
 /* ▼ 各ボックスの配色設定 */
 div#tab1 {
@@ -196,18 +167,37 @@ div#tab1 {
      border: 2px solid #ffbf00; 
      background-color: #ffbf00;
 }
-div#tab2 { 
-    margin: 10px auto; 
-    border: 2px solid #52df66; 
-    background-color: #52df66; 
-}
-
-div.tab p { margin: 0.5em; }
-
 
 /*本文*/
 p#article{
    font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+}
+
+
+/*掲示板　リプライ用　モーダルウィンドウ*/
+#modal_content{
+  width:50%;
+  margin:1.5em auto 0;
+  padding:10px 20px;
+  border:2px solid #aaa;
+  background:#fff;
+  z-index:2;
+  display: none;
+  position:fixed;
+  top:400px;
+  left:250px;
+ 
+}
+/*モーダルウィンドウの後ろの黒いところ*/
+#modal_overlay{
+  z-index:1;
+  display: none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:120%;
+  background-color:rgba(0,0,0,0.75);
 }
 
 /* donuts css */
